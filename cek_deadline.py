@@ -1,10 +1,10 @@
 import datetime
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from models import Task, Base
-import saas  # pastikan file saas.py memiliki fungsi send_notification
+from backend.models import Task, Base
+import saas
 
-DATABASE_URL = "sqlite:///./task.db"
+DATABASE_URL = "sqlite:///backend/todoapp.db"
 
 # Setup DB session
 engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
@@ -38,7 +38,7 @@ def cek_deadline():
         if not semua_task:
             print("Tidak ada tugas yang perlu diingatkan saat ini.")
         else:
-            print(f"⚠️ Ditemukan {len(semua_task)} tugas yang perlu diperhatikan.")
+            print(f"Ditemukan {len(semua_task)} tugas yang perlu diperhatikan.")
             for task in semua_task:
                 deadline_str = task.deadline.strftime('%Y-%m-%d %H:%M')
                 if task.pushover:
